@@ -13,7 +13,9 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class VotingModel {
+    private String cpf;
+    private String agendaId;
     @NotBlank
-    @Max(value = 1, message = "Please, insert 'S' or 'N")
-    private Character option;
+    @Max(value = 1, message = "Please, insert your vote")
+    private String option;
 }

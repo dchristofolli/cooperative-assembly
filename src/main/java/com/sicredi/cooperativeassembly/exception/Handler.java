@@ -1,5 +1,6 @@
 package com.sicredi.cooperativeassembly.exception;
 
+import com.mongodb.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,6 +38,16 @@ public class Handler {
                 .message(e.getMessage())
                 .error(e.getClass().getName())
                 .status(e.getStatus())
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ErrorModel handleDuplicateKeyException(DuplicateKeyException e) {
+        return ErrorModel.builder()
+                .message("The value already exists in the database")
+                .error(e.getClass().getName())
+                .status(HttpStatus.BAD_REQUEST)
                 .build();
     }
 
