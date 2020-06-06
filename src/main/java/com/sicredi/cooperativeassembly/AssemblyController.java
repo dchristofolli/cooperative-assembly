@@ -91,8 +91,7 @@ public class AssemblyController {
             @ApiResponse(code = 500, message = "Bad server")
     })
     @GetMapping("/session/results")
-    //TODO retornar todas as votações encerradas se o ID estiver em branco
-    public SessionResultModel votationResult(String agendaId) {
-        return assemblyFacade.votationResult(agendaId);
+    public SessionResultModel sessionResult(String agendaId) {
+        return assemblyFacade.sessionResult(agendaId);
     }
 }

@@ -1,6 +1,6 @@
 package com.sicredi.cooperativeassembly.mapper;
 
-import com.sicredi.cooperativeassembly.entity.AgendaEntity;
+import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
 import com.sicredi.cooperativeassembly.model.agenda.AgendaListResponse;
 import com.sicredi.cooperativeassembly.model.agenda.AgendaRegistrationModel;
 import com.sicredi.cooperativeassembly.model.agenda.AgendaResponseModel;

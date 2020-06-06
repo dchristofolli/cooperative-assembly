@@ -1,10 +1,10 @@
 package com.sicredi.cooperativeassembly.service;
 
-import com.sicredi.cooperativeassembly.entity.SessionEntity;
+import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
 import com.sicredi.cooperativeassembly.model.session.SessionResultModel;
 import com.sicredi.cooperativeassembly.model.vote.VoteModel;
-import com.sicredi.cooperativeassembly.repository.SessionRepository;
+import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

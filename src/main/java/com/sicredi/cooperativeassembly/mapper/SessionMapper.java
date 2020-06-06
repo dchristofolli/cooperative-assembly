@@ -1,6 +1,6 @@
 package com.sicredi.cooperativeassembly.mapper;
 
-import com.sicredi.cooperativeassembly.entity.SessionEntity;
+import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
 import com.sicredi.cooperativeassembly.model.session.SessionRequestModel;
 import com.sicredi.cooperativeassembly.model.session.SessionResponseModel;

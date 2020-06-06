@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.entity;
+package com.sicredi.cooperativeassembly.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
