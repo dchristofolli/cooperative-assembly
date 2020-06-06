@@ -1,11 +1,13 @@
 package com.sicredi.cooperativeassembly.service;
 
-import com.sicredi.cooperativeassembly.AgendaRepository;
 import com.sicredi.cooperativeassembly.entity.AgendaEntity;
+import com.sicredi.cooperativeassembly.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
 import com.sicredi.cooperativeassembly.model.AgendaRegistrationModel;
 import com.sicredi.cooperativeassembly.model.ResultModel;
 import com.sicredi.cooperativeassembly.model.VotingModel;
+import com.sicredi.cooperativeassembly.repository.AgendaRepository;
+import com.sicredi.cooperativeassembly.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,31 +26,35 @@ import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapAgendaToEnt
 @Slf4j
 public class SessionService {
     private final AgendaRepository agendaRepository;
+    private final SessionRepository sessionRepository;
 
     public AgendaEntity createAgenda(AgendaRegistrationModel agendaRegistrationModel) {
         return agendaRepository.save(mapAgendaToEntity(agendaRegistrationModel));
     }
 
-    public AgendaEntity findById(String agendaId) {
+    public AgendaEntity findAgendaById(String agendaId) {
         return agendaRepository.findById(agendaId)
                 .orElseThrow(() -> new ApiException("Agenda not found", HttpStatus.NOT_FOUND));
     }
 
-    public void openVotingSession(String agendaId, Long timeInSeconds) {
-        long timeInMinute=60L;
-        if(timeInSeconds != null)
-            timeInMinute = timeInSeconds * 60;
-        AgendaEntity agendaEntity = findById(agendaId);
-        agendaEntity.setSessionCloseTime(Instant.now().plusSeconds(timeInMinute));
-        agendaRepository.save(agendaEntity);
+    public SessionEntity findSessionById(String sessionId) {
+        return sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ApiException("Session not found", HttpStatus.NOT_FOUND));
     }
 
-    public Boolean sessionIsOpen(String agendaId) {
-        return findById(agendaId).getSessionCloseTime().isAfter(Instant.now());
+    public void createVotingSession(SessionEntity sessionEntity) {
+        long timeInMinute = 60L;
+        if (sessionEntity.getSessionCloseTime() != null)
+            sessionEntity.setSessionCloseTime(Instant.now().plusSeconds(timeInMinute));
+        sessionRepository.save(sessionEntity);
     }
 
-    public List<AgendaEntity> findAllOpenSessions() {
-        List<AgendaEntity> activeSessions = agendaRepository.findAll().parallelStream()
+    public Boolean sessionIsOpen(String sessionId) {
+        return findSessionById(sessionId).getSessionCloseTime().isAfter(Instant.now());
+    }
+
+    public List<SessionEntity> findAllOpenSessions() {
+        List<SessionEntity> activeSessions = sessionRepository.findAll().parallelStream()
                 .filter(a -> a.getSessionCloseTime().isAfter(Instant.now()))
                 .collect(Collectors.toList());
         if (activeSessions.isEmpty()) {
@@ -58,25 +64,27 @@ public class SessionService {
     }
 
     public void vote(VotingModel votingModel) {
-        AgendaEntity agendaEntity = findById(votingModel.getAgendaId());
-        List<String> votes = agendaEntity.getVotes();
-        List<String> cpf = agendaEntity.getCpfAlreadyVoted();
+        SessionEntity sessionEntity = findSessionById(votingModel.getSessionId());
+        List<String> votes = sessionEntity.getVotes();
+        List<String> cpf = sessionEntity.getCpfAlreadyVoted();
         votes.add(votingModel.getOption().toUpperCase());
         cpf.add(votingModel.getCpf());
 
-        agendaEntity.setVotes(votes);
-        agendaEntity.setCpfAlreadyVoted(cpf);
-        agendaRepository.save(agendaEntity);
+        sessionEntity.setVotes(votes);
+        sessionEntity.setCpfAlreadyVoted(cpf);
+        sessionRepository.save(sessionEntity);
     }
 
     public Boolean cpfAlreadyVotedOnThisSession(VotingModel votingModel) {
-        return findById(votingModel.getAgendaId()).getCpfAlreadyVoted().contains(votingModel.getCpf());
+        return findSessionById(votingModel.getSessionId()).getCpfAlreadyVoted().contains(votingModel.getCpf());
     }
 
-    public ResultModel votationResult(String id) {
-        List<String> votes = findById(id).getVotes();
+    public ResultModel votationResult(String sessionId) {
+        String agendaId = findSessionById(sessionId).getAgendaId();
+        List<String> votes = findSessionById(sessionId).getVotes();
         return ResultModel.builder()
-                .agendaId(id)
+                .sessionId(sessionId)
+                .agendaId(agendaId)
                 .favor(votes.parallelStream().filter(v -> v.equals("S")).count())
                 .against(votes.parallelStream().filter(v -> v.equals("N")).count())
                 .total(votes.size())

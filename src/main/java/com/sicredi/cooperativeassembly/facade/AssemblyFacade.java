@@ -1,6 +1,7 @@
 package com.sicredi.cooperativeassembly.facade;
 
 import com.sicredi.cooperativeassembly.entity.AgendaEntity;
+import com.sicredi.cooperativeassembly.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
 import com.sicredi.cooperativeassembly.model.AgendaRegistrationModel;
 import com.sicredi.cooperativeassembly.model.AgendaResponseModel;
@@ -8,7 +9,6 @@ import com.sicredi.cooperativeassembly.model.ResultModel;
 import com.sicredi.cooperativeassembly.model.VotingModel;
 import com.sicredi.cooperativeassembly.service.SessionService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +25,8 @@ public class AssemblyFacade {
         return mapEntityToResponse(sessionService.createAgenda(agendaRegistrationModel));
     }
 
-    public void openVotingSession(String agendaId, Long timeInMinutes) {
-        sessionService.openVotingSession(agendaId, timeInMinutes);
+    public void createVotingSession(SessionEntity sessionEntity) {
+        sessionService.createVotingSession(sessionEntity);
     }
 
     public List<AgendaEntity> findAllOpenSessions() {
@@ -36,7 +36,7 @@ public class AssemblyFacade {
     public void vote(VotingModel votingModel) {
         if(sessionService.cpfAlreadyVotedOnThisSession(votingModel))
             throw new ApiException("User already voted on this session", HttpStatus.FORBIDDEN);
-        if(!sessionService.sessionIsOpen(votingModel.getAgendaId()))
+        if(!sessionService.sessionIsOpen(votingModel.getSessionId()))
                 throw new ApiException("This session is not active", HttpStatus.NOT_FOUND);
         sessionService.vote(votingModel);
     }

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class VotingModel {
     private String cpf;
-    private String agendaId;
+    private String sessionId;
     @NotBlank
     @Max(value = 1, message = "Please, insert your vote")
     private String option;

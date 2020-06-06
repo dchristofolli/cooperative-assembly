@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly;
+package com.sicredi.cooperativeassembly.repository;
 
 import com.sicredi.cooperativeassembly.entity.AgendaEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;

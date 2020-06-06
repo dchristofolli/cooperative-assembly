@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ResultModel {
+    String sessionId;
     String agendaId;
     Long favor;
     Long against;

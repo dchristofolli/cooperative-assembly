@@ -8,9 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
-import java.util.List;
-
 @lombok.Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +20,4 @@ public class AgendaEntity {
     @Indexed(unique = true)
     private String subject;
     private String description;
-    private List<String> votes;
-    private List<String> cpfAlreadyVoted;
-    private Instant sessionCloseTime;
 }

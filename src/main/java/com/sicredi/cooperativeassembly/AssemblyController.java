@@ -1,6 +1,7 @@
 package com.sicredi.cooperativeassembly;
 
 import com.sicredi.cooperativeassembly.entity.AgendaEntity;
+import com.sicredi.cooperativeassembly.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
 import com.sicredi.cooperativeassembly.model.AgendaRegistrationModel;
 import com.sicredi.cooperativeassembly.model.AgendaResponseModel;
@@ -43,9 +44,9 @@ public class AssemblyController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @PatchMapping("/session/{agendaId}/open")
-    public void openSession(@PathVariable String agendaId, Long timeInMinutes) {
-        assemblyFacade.openVotingSession(agendaId, timeInMinutes);
+    @PostMapping("/session/open")
+    public void createSession(SessionEntity sessionEntity) {
+        assemblyFacade.createVotingSession(sessionEntity);
     }
 
     @ApiOperation("Finds all agendas that have an active session")
