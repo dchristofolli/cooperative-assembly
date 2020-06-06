@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.model;
+package com.sicredi.cooperativeassembly.model.agenda;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class SessionRequestModel {
-    private String agendaId;
-    private Long minutesRemaining;
+public class AgendaResponseModel {
+    String id;
+    String subject;
 }

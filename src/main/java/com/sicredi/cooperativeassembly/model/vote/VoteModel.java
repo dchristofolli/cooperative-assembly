@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.model;
+package com.sicredi.cooperativeassembly.model.vote;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class VotingModel {
+public class VoteModel {
     private String cpf;
     private String sessionId;
     @NotBlank

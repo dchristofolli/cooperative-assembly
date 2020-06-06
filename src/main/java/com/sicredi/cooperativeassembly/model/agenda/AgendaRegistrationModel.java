@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.model;
+package com.sicredi.cooperativeassembly.model.agenda;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

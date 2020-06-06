@@ -1,14 +1,17 @@
 package com.sicredi.cooperativeassembly.mapper;
 
 import com.sicredi.cooperativeassembly.entity.SessionEntity;
-import com.sicredi.cooperativeassembly.model.SessionRequestModel;
-import com.sicredi.cooperativeassembly.model.SessionResponseModel;
+import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.model.session.SessionRequestModel;
+import com.sicredi.cooperativeassembly.model.session.SessionResponseModel;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
@@ -25,6 +28,18 @@ public class SessionMapper {
     public static SessionResponseModel mapEntityToModel(SessionEntity sessionEntity) {
         return SessionResponseModel.builder()
                 .sessionId(sessionEntity.getSessionId())
+                .build();
+    }
+
+    public static SessionListResponse mapToSessionList(List<SessionEntity> sessionEntityList){
+        List<SessionResponseModel> sessionResponseModels = sessionEntityList
+                .parallelStream()
+                .map(sessionEntity -> SessionResponseModel.builder()
+                .sessionId(sessionEntity.getSessionId())
+                .build()).collect(Collectors.toList());
+        return SessionListResponse.builder()
+                .list(sessionResponseModels)
+                .quantity(sessionResponseModels.size())
                 .build();
     }
 }

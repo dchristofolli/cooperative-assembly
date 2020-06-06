@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.model;
+package com.sicredi.cooperativeassembly.model.session;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
