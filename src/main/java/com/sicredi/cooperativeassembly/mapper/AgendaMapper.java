@@ -7,9 +7,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-import java.util.Collections;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class AgendaMapper {
@@ -17,9 +14,6 @@ public class AgendaMapper {
         return AgendaEntity.builder()
                 .subject(agendaRegistrationModel.getSubject())
                 .description(agendaRegistrationModel.getDescription())
-                .votes(Collections.emptyList())
-                .cpfAlreadyVoted(Collections.emptyList())
-                .sessionCloseTime(Instant.now())
                 .build();
     }
 

@@ -1,12 +1,8 @@
 package com.sicredi.cooperativeassembly.facade;
 
-import com.sicredi.cooperativeassembly.entity.AgendaEntity;
 import com.sicredi.cooperativeassembly.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.model.AgendaRegistrationModel;
-import com.sicredi.cooperativeassembly.model.AgendaResponseModel;
-import com.sicredi.cooperativeassembly.model.ResultModel;
-import com.sicredi.cooperativeassembly.model.VotingModel;
+import com.sicredi.cooperativeassembly.model.*;
 import com.sicredi.cooperativeassembly.service.SessionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapEntityToResponse;
+import static com.sicredi.cooperativeassembly.mapper.SessionMapper.mapEntityToModel;
+import static com.sicredi.cooperativeassembly.mapper.SessionMapper.mapModelToEntity;
 
 @Component
 @AllArgsConstructor
@@ -25,24 +23,28 @@ public class AssemblyFacade {
         return mapEntityToResponse(sessionService.createAgenda(agendaRegistrationModel));
     }
 
-    public void createVotingSession(SessionEntity sessionEntity) {
-        sessionService.createVotingSession(sessionEntity);
+    public SessionResponseModel createVotingSession(SessionRequestModel sessionRequestModel) {
+        if(!sessionService.agendaExistsById(sessionRequestModel.getAgendaId()))
+            throw new ApiException("Invalid Agenda Id", HttpStatus.BAD_REQUEST);
+        return mapEntityToModel(sessionService.createVotingSession(mapModelToEntity(sessionRequestModel)));
     }
 
-    public List<AgendaEntity> findAllOpenSessions() {
+    public List<SessionEntity> findAllOpenSessions() {
         return sessionService.findAllOpenSessions();
     }
 
     public void vote(VotingModel votingModel) {
-        if(sessionService.cpfAlreadyVotedOnThisSession(votingModel))
+        if(!sessionService.sessionIsActive(votingModel.getSessionId()))
+            throw new ApiException("Session is not active", HttpStatus.NOT_FOUND);
+        if(sessionService.alreadyVotedOnThisSession(votingModel))
             throw new ApiException("User already voted on this session", HttpStatus.FORBIDDEN);
-        if(!sessionService.sessionIsOpen(votingModel.getSessionId()))
+        if(!sessionService.sessionIsActive(votingModel.getSessionId()))
                 throw new ApiException("This session is not active", HttpStatus.NOT_FOUND);
         sessionService.vote(votingModel);
     }
 
     public ResultModel votationResult(String agendaId){
-        if(sessionService.sessionIsOpen(agendaId)){
+        if(sessionService.sessionIsActive(agendaId)){
             throw new ApiException("The session is still active", HttpStatus.FORBIDDEN);
         }
         return sessionService.votationResult(agendaId);

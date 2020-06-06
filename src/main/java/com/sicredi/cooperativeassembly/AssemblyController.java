@@ -1,12 +1,8 @@
 package com.sicredi.cooperativeassembly;
 
-import com.sicredi.cooperativeassembly.entity.AgendaEntity;
 import com.sicredi.cooperativeassembly.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
-import com.sicredi.cooperativeassembly.model.AgendaRegistrationModel;
-import com.sicredi.cooperativeassembly.model.AgendaResponseModel;
-import com.sicredi.cooperativeassembly.model.ResultModel;
-import com.sicredi.cooperativeassembly.model.VotingModel;
+import com.sicredi.cooperativeassembly.model.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @Api(value = "Cooperative Assembly")
-@RequestMapping(path = "/assembly/agenda")
+@RequestMapping(path = "/assembly")
 public class AssemblyController {
     private final AssemblyFacade assemblyFacade;
 
@@ -32,21 +28,22 @@ public class AssemblyController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "An error occurred on the server")
     })
-    @PostMapping
+    @PostMapping("/agenda")
     public AgendaResponseModel createAgenda(@Valid @RequestBody AgendaRegistrationModel agendaRegistrationModel) {
         return assemblyFacade.createAgenda(agendaRegistrationModel);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Opens a voting session, receiving the agenda id and the duration of the session. " +
             "Default duration: 1 minute")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Agenda found"),
+            @ApiResponse(code = 201, message = "Open session"),
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Bad server")
     })
     @PostMapping("/session/open")
-    public void createSession(SessionEntity sessionEntity) {
-        assemblyFacade.createVotingSession(sessionEntity);
+    public SessionResponseModel createSession(@RequestBody SessionRequestModel sessionRequestModel) {
+        return assemblyFacade.createVotingSession(sessionRequestModel);
     }
 
     @ApiOperation("Finds all agendas that have an active session")
@@ -55,8 +52,8 @@ public class AssemblyController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("/all-open-sessions")
-    public List<AgendaEntity> findAllOpenSessions() {
+    @GetMapping("session/all-open-sessions")
+    public List<SessionEntity> findAllOpenSessions() {
         return assemblyFacade.findAllOpenSessions();
     }
 
@@ -66,7 +63,7 @@ public class AssemblyController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "An error occurred on the server")
     })
-    @PostMapping("/vote/")
+    @PatchMapping("/vote/")
     public void vote(@RequestBody VotingModel votingModel) {
         assemblyFacade.vote(votingModel);
     }
@@ -74,12 +71,12 @@ public class AssemblyController {
     @ApiOperation("Displays the result of closed polls")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Results found"),
-            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 403, message = "Not allowed"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("/votation/results")
+    @GetMapping("/session/results")
     //TODO retornar todas as votações encerradas se o ID estiver em branco
-    public ResultModel votationResult(String agendaId){
+    public ResultModel votationResult(String agendaId) {
         return assemblyFacade.votationResult(agendaId);
     }
 }

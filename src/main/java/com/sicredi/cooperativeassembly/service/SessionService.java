@@ -32,6 +32,10 @@ public class SessionService {
         return agendaRepository.save(mapAgendaToEntity(agendaRegistrationModel));
     }
 
+    public Boolean agendaExistsById(String agendaId){
+        return agendaRepository.existsById(agendaId);
+    }
+
     public AgendaEntity findAgendaById(String agendaId) {
         return agendaRepository.findById(agendaId)
                 .orElseThrow(() -> new ApiException("Agenda not found", HttpStatus.NOT_FOUND));
@@ -42,14 +46,14 @@ public class SessionService {
                 .orElseThrow(() -> new ApiException("Session not found", HttpStatus.NOT_FOUND));
     }
 
-    public void createVotingSession(SessionEntity sessionEntity) {
-        long timeInMinute = 60L;
+    public SessionEntity createVotingSession(SessionEntity sessionEntity) {
+        long duration = 60L;
         if (sessionEntity.getSessionCloseTime() != null)
-            sessionEntity.setSessionCloseTime(Instant.now().plusSeconds(timeInMinute));
-        sessionRepository.save(sessionEntity);
+            sessionEntity.setSessionCloseTime(Instant.now().plusSeconds(duration));
+        return sessionRepository.save(sessionEntity);
     }
 
-    public Boolean sessionIsOpen(String sessionId) {
+    public Boolean sessionIsActive(String sessionId) {
         return findSessionById(sessionId).getSessionCloseTime().isAfter(Instant.now());
     }
 
@@ -69,13 +73,12 @@ public class SessionService {
         List<String> cpf = sessionEntity.getCpfAlreadyVoted();
         votes.add(votingModel.getOption().toUpperCase());
         cpf.add(votingModel.getCpf());
-
         sessionEntity.setVotes(votes);
         sessionEntity.setCpfAlreadyVoted(cpf);
         sessionRepository.save(sessionEntity);
     }
 
-    public Boolean cpfAlreadyVotedOnThisSession(VotingModel votingModel) {
+    public Boolean alreadyVotedOnThisSession(VotingModel votingModel) {
         return findSessionById(votingModel.getSessionId()).getCpfAlreadyVoted().contains(votingModel.getCpf());
     }
 
