@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+
 @lombok.Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,14 +16,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class AgendaEntity {
     @Id
     private String id;
-
     private String subject;
-
     private String description;
-
     private Long votesInFavor;
-
     private Long votesAgainst;
-
-    private Character openSession;
+    private Instant sessionCloseTime;
 }

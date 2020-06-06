@@ -7,17 +7,20 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class AgendaMapper {
-    public static AgendaEntity mapAgendaToEntity(AgendaRegistrationModel agendaRegistrationModel){
+    public static AgendaEntity mapAgendaToEntity(AgendaRegistrationModel agendaRegistrationModel) {
         return AgendaEntity.builder()
                 .subject(agendaRegistrationModel.getSubject())
                 .description(agendaRegistrationModel.getDescription())
+                .sessionCloseTime(Instant.now())
                 .build();
     }
 
-    public static AgendaResponseModel mapEntityToResponse(AgendaEntity agendaEntity){
+    public static AgendaResponseModel mapEntityToResponse(AgendaEntity agendaEntity) {
         return AgendaResponseModel.builder()
                 .id(agendaEntity.getId())
                 .subject(agendaEntity.getSubject())
