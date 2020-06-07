@@ -33,13 +33,14 @@ Para rodar o sistema, os contêineres do Docker devem estar em execução,
 pois, o MongoDB e o Kafka serão executados no Docker. Para isso, executar o comando abaixo no terminal
 docker-compose up -d
 Ao fim da execução do comando acima, o sistema deverá ser executado em uma IDE, ou rodando o comando abaixo no terminal:
+
 java -jar ./build/libs/cooperative-assembly-0.0.1-SNAPSHOT.jar.
 
 **Importante** Os comandos descritos nesse documento devem ser executados num terminal aberto na pasta raiz do projeto.
 
 #### Iniciando os testes
-#####URL do Swagger
-* [Home](http://127.0.0.1:8080/swagger-ui.html#/assembly-controller)
+####URL do Swagger
+* [Swagger](http://127.0.0.1:8080/swagger-ui.html#/assembly-controller)
 
 #### Endpoints
 * /assembly/admin/agenda

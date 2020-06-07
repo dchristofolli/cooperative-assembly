@@ -42,32 +42,4 @@ public class AssemblyControllerTest {
     @InjectMocks
     private AssemblyController assemblyController;
 
-    @Test
-    public void createAgenda() throws Exception {
-        assemblyController.createAgenda(agendaRequestStub());
-        mockMvc.perform(post("/assembly/agenda")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(agendaEntityStub())))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    public void findAllAgendas() {
-    }
-
-    @Test
-    public void createSession() {
-    }
-
-    @Test
-    public void findAllOpenSessions() {
-    }
-
-    @Test
-    public void vote() {
-    }
-
-    @Test
-    public void sessionResult() {
-    }
 }
