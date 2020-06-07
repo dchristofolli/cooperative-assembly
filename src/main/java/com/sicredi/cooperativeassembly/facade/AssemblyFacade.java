@@ -53,8 +53,8 @@ public class AssemblyFacade {
     public VoteModel vote(VoteModel voteModel) {
         if (!sessionService.sessionIsActive(voteModel.getSessionId()))
             throw new ApiException("Session is not active", HttpStatus.NOT_FOUND);
-//        if (!cpfService.cpfIsAbleToVote(voteModel.getCpf()))
-//            throw new ApiException("Unable to vote", HttpStatus.UNAUTHORIZED);
+        if (!cpfService.cpfIsAbleToVote(voteModel.getCpf()))
+            throw new ApiException("Unable to vote", HttpStatus.UNAUTHORIZED);
         if (sessionService.alreadyVotedOnThisSession(voteModel))
             throw new ApiException("User already voted on this session", HttpStatus.FORBIDDEN);
         return sessionService.vote(voteModel);

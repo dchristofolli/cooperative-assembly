@@ -1,6 +1,7 @@
 package com.sicredi.cooperativeassembly;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sicredi.cooperativeassembly.controller.AssemblyController;
 import com.sicredi.cooperativeassembly.data.repository.AgendaRepository;
 import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
@@ -20,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static com.sicredi.cooperativeassembly.Stub.agendaEntityStub;
 import static com.sicredi.cooperativeassembly.Stub.agendaRequestStub;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

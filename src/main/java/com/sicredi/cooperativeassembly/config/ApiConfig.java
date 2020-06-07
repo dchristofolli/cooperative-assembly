@@ -12,4 +12,9 @@ public class ApiConfig {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
+
+    @Bean
+    public Boolean aBoolean(){
+        return true;
+    }
 }
