@@ -13,6 +13,4 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SessionResponse {
     private String sessionId;
-    private String subject;
-    private Long remainingSeconds;
 }

@@ -31,7 +31,6 @@ public class ProducerConfiguration {
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         properties.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
-        properties.put(ProducerConfig.ACKS_CONFIG, "all");
         properties.put(ProducerConfig.RETRIES_CONFIG, RETRIES);
         properties.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, MAX_REQUESTS);
         properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, CompressionType.GZIP.name);

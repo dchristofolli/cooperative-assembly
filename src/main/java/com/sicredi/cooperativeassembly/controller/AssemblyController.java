@@ -22,7 +22,6 @@ public class AssemblyController {
     @ApiOperation("Find all agendas")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Sessions found"),
-            @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Bad server")
     })
     @GetMapping("agenda/all")
@@ -33,10 +32,9 @@ public class AssemblyController {
     @ApiOperation("Find all open sessions")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Sessions found"),
-            @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("session/all-open-sessions")
+    @GetMapping("session/open-sessions")
     public SessionListResponse findAllOpenSessions() {
         return assemblyFacade.findAllOpenSessions();
     }
@@ -47,7 +45,7 @@ public class AssemblyController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "An error occurred on the server")
     })
-    @PostMapping("/vote/")
+    @PostMapping("/vote")
     public VoteModel vote(@RequestBody VoteModel voteModel) {
         return assemblyFacade.vote(voteModel);
     }
@@ -55,7 +53,7 @@ public class AssemblyController {
     @ApiOperation("Displays the result of closed polls")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Results found"),
-            @ApiResponse(code = 403, message = "Not allowed"),
+            @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Bad server")
     })
     @GetMapping("/session/results")
