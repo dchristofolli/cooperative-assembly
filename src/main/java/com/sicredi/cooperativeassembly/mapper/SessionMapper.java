@@ -2,8 +2,8 @@ package com.sicredi.cooperativeassembly.mapper;
 
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionRequestModel;
-import com.sicredi.cooperativeassembly.model.session.SessionResponseModel;
+import com.sicredi.cooperativeassembly.model.session.SessionRequest;
+import com.sicredi.cooperativeassembly.model.session.SessionResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -16,30 +16,31 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class SessionMapper {
-    public static SessionEntity mapModelToEntity(SessionRequestModel sessionRequestModel) {
+    public static SessionEntity mapModelToEntity(SessionRequest sessionRequest) {
         return SessionEntity.builder()
-                .agendaId(sessionRequestModel.getAgendaId())
-                .sessionCloseTime(Instant.now().plusSeconds(sessionRequestModel.getMinutesRemaining() * 60))
+                .agendaId(sessionRequest.getAgendaId())
+                .sessionCloseTime(Instant.now().plusSeconds(sessionRequest.getMinutesRemaining() * 60))
+                .isActive(true)
                 .cpfAlreadyVoted(Collections.emptyList())
                 .votes(Collections.emptyList())
                 .build();
     }
 
-    public static SessionResponseModel mapEntityToModel(SessionEntity sessionEntity) {
-        return SessionResponseModel.builder()
+    public static SessionResponse mapEntityToModel(SessionEntity sessionEntity) {
+        return SessionResponse.builder()
                 .sessionId(sessionEntity.getSessionId())
                 .build();
     }
 
     public static SessionListResponse mapToSessionList(List<SessionEntity> sessionEntityList){
-        List<SessionResponseModel> sessionResponseModels = sessionEntityList
+        List<SessionResponse> sessionResponses = sessionEntityList
                 .parallelStream()
-                .map(sessionEntity -> SessionResponseModel.builder()
+                .map(sessionEntity -> SessionResponse.builder()
                 .sessionId(sessionEntity.getSessionId())
                 .build()).collect(Collectors.toList());
         return SessionListResponse.builder()
-                .list(sessionResponseModels)
-                .quantity(sessionResponseModels.size())
+                .list(sessionResponses)
+                .quantity(sessionResponses.size())
                 .build();
     }
 }

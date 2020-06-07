@@ -23,4 +23,5 @@ public class SessionEntity {
     private List<String> votes;
     private List<String> cpfAlreadyVoted;
     private Instant sessionCloseTime;
+    private Boolean isActive;
 }

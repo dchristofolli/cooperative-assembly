@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class SessionRequestModel {
-    private String agendaId;
-    private Long minutesRemaining;
+public class SessionResult {
+    String sessionId;
+    String agendaId;
+    Long favor;
+    Long against;
+    Integer total;
 }

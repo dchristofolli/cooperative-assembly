@@ -3,14 +3,15 @@ package com.sicredi.cooperativeassembly.facade;
 import com.sicredi.cooperativeassembly.exception.ApiException;
 import com.sicredi.cooperativeassembly.mapper.SessionMapper;
 import com.sicredi.cooperativeassembly.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRegistrationModel;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaResponseModel;
+import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.model.agenda.AgendaResponse;
 import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionRequestModel;
-import com.sicredi.cooperativeassembly.model.session.SessionResponseModel;
-import com.sicredi.cooperativeassembly.model.session.SessionResultModel;
+import com.sicredi.cooperativeassembly.model.session.SessionRequest;
+import com.sicredi.cooperativeassembly.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.model.session.SessionResult;
 import com.sicredi.cooperativeassembly.model.vote.VoteModel;
 import com.sicredi.cooperativeassembly.service.AgendaService;
+import com.sicredi.cooperativeassembly.service.CpfService;
 import com.sicredi.cooperativeassembly.service.SessionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,17 +27,18 @@ import static com.sicredi.cooperativeassembly.mapper.SessionMapper.mapModelToEnt
 public class AssemblyFacade {
     private final AgendaService agendaService;
     private final SessionService sessionService;
+    private final CpfService cpfService;
 
-    public AgendaResponseModel createAgenda(AgendaRegistrationModel agendaRegistrationModel) {
-        return mapEntityToResponse(agendaService.save(agendaRegistrationModel));
+    public AgendaResponse createAgenda(AgendaRequest agendaRequest) {
+        return mapEntityToResponse(agendaService.save(agendaRequest));
     }
 
-    public SessionResponseModel createVotingSession(SessionRequestModel sessionRequestModel) {
-        if (!agendaService.existsById(sessionRequestModel.getAgendaId()))
+    public SessionResponse createVotingSession(SessionRequest sessionRequest) {
+        if (!agendaService.existsById(sessionRequest.getAgendaId()))
             throw new ApiException("Invalid Agenda Id", HttpStatus.BAD_REQUEST);
-        if (sessionRequestModel.getMinutesRemaining().equals(0L) || sessionRequestModel.getMinutesRemaining() == null)
-            sessionRequestModel.setMinutesRemaining(1L);
-        return mapEntityToModel(sessionService.createVotingSession(mapModelToEntity(sessionRequestModel)));
+        if (sessionRequest.getMinutesRemaining().equals(0L) || sessionRequest.getMinutesRemaining() == null)
+            sessionRequest.setMinutesRemaining(1L);
+        return mapEntityToModel(sessionService.createVotingSession(mapModelToEntity(sessionRequest)));
     }
 
     public SessionListResponse findAllOpenSessions() {
@@ -46,14 +48,14 @@ public class AssemblyFacade {
     public VoteModel vote(VoteModel voteModel) {
         if (!sessionService.sessionIsActive(voteModel.getSessionId()))
             throw new ApiException("Session is not active", HttpStatus.NOT_FOUND);
+        if(!cpfService.cpfIsAbleToVote(voteModel.getCpf()))
+            throw new ApiException("Unable to vote", HttpStatus.UNAUTHORIZED);
         if (sessionService.alreadyVotedOnThisSession(voteModel))
             throw new ApiException("User already voted on this session", HttpStatus.FORBIDDEN);
-        if (!sessionService.sessionIsActive(voteModel.getSessionId()))
-            throw new ApiException("This session is not active", HttpStatus.NOT_FOUND);
         return sessionService.vote(voteModel);
     }
 
-    public SessionResultModel sessionResult(String agendaId) {
+    public SessionResult sessionResult(String agendaId) {
         if (sessionService.sessionIsActive(agendaId)) {
             throw new ApiException("The session is still active", HttpStatus.FORBIDDEN);
         }

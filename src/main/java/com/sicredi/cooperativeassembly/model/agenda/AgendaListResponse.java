@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class AgendaListResponse {
-    private List<AgendaResponseModel> list;
+    private List<AgendaResponse> list;
     private Integer quantity;
 }

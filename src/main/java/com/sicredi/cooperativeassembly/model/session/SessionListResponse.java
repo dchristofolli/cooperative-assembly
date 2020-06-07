@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class SessionListResponse {
-    private List<SessionResponseModel> list;
+    private List<SessionResponse> list;
     private Integer quantity;
 }

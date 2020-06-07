@@ -2,7 +2,7 @@ package com.sicredi.cooperativeassembly.service;
 
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.model.session.SessionResultModel;
+import com.sicredi.cooperativeassembly.model.session.SessionResult;
 import com.sicredi.cooperativeassembly.model.vote.VoteModel;
 import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class SessionService {
     }
 
     public Boolean sessionIsActive(String sessionId) {
-        return findSessionById(sessionId).getSessionCloseTime().isAfter(Instant.now());
+        return findSessionById(sessionId).getIsActive();
     }
 
     public List<SessionEntity> findAllOpenSessions() {
@@ -61,10 +61,10 @@ public class SessionService {
         return findSessionById(voteModel.getSessionId()).getCpfAlreadyVoted().contains(voteModel.getCpf());
     }
 
-    public SessionResultModel votationResult(String sessionId) {
+    public SessionResult votationResult(String sessionId) {
         String agendaId = findSessionById(sessionId).getAgendaId();
         List<String> votes = findSessionById(sessionId).getVotes();
-        return SessionResultModel.builder()
+        return SessionResult.builder()
                 .sessionId(sessionId)
                 .agendaId(agendaId)
                 .favor(votes.parallelStream().filter(v -> v.equals("S")).count())

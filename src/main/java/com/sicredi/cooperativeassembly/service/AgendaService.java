@@ -2,7 +2,7 @@ package com.sicredi.cooperativeassembly.service;
 
 import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRegistrationModel;
+import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
 import com.sicredi.cooperativeassembly.data.repository.AgendaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,8 @@ import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapAgendaToEnt
 public class AgendaService {
     private final AgendaRepository agendaRepository;
 
-    public AgendaEntity save(AgendaRegistrationModel agendaRegistrationModel) {
-        return agendaRepository.save(mapAgendaToEntity(agendaRegistrationModel));
+    public AgendaEntity save(AgendaRequest agendaRequest) {
+        return agendaRepository.save(mapAgendaToEntity(agendaRequest));
     }
 
     public Boolean existsById(String agendaId) {

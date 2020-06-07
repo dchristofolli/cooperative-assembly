@@ -2,18 +2,19 @@ package com.sicredi.cooperativeassembly;
 
 import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
 import com.sicredi.cooperativeassembly.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRegistrationModel;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaResponseModel;
+import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.model.agenda.AgendaResponse;
 import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionRequestModel;
-import com.sicredi.cooperativeassembly.model.session.SessionResponseModel;
-import com.sicredi.cooperativeassembly.model.session.SessionResultModel;
+import com.sicredi.cooperativeassembly.model.session.SessionRequest;
+import com.sicredi.cooperativeassembly.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.model.session.SessionResult;
 import com.sicredi.cooperativeassembly.model.vote.VoteModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class AssemblyController {
             @ApiResponse(code = 500, message = "An error occurred on the server")
     })
     @PostMapping("/agenda")
-    public AgendaResponseModel createAgenda(@Valid @RequestBody AgendaRegistrationModel agendaRegistrationModel) {
-        return assemblyFacade.createAgenda(agendaRegistrationModel);
+    public AgendaResponse createAgenda(@Valid @RequestBody AgendaRequest agendaRequest) {
+        return assemblyFacade.createAgenda(agendaRequest);
     }
 
     @ApiOperation("Find all agendas")
@@ -58,8 +59,8 @@ public class AssemblyController {
             @ApiResponse(code = 500, message = "Bad server")
     })
     @PostMapping("/session/open")
-    public SessionResponseModel createSession(@RequestBody SessionRequestModel sessionRequestModel) {
-        return assemblyFacade.createVotingSession(sessionRequestModel);
+    public SessionResponse createSession(@RequestBody SessionRequest sessionRequest) {
+        return assemblyFacade.createVotingSession(sessionRequest);
     }
 
     @ApiOperation("Find all open sessions")
@@ -91,7 +92,7 @@ public class AssemblyController {
             @ApiResponse(code = 500, message = "Bad server")
     })
     @GetMapping("/session/results")
-    public SessionResultModel sessionResult(String agendaId) {
+    public SessionResult sessionResult(String agendaId) {
         return assemblyFacade.sessionResult(agendaId);
     }
 }

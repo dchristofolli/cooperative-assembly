@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AgendaRegistrationModel {
+public class AgendaRequest {
     String subject;
     String description;
 }

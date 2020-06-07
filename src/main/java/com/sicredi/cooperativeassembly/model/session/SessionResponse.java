@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SessionResponseModel {
+public class SessionResponse {
     private String sessionId;
     private String subject;
     private Long remainingSeconds;
