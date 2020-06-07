@@ -32,7 +32,7 @@ public class SessionService {
     }
 
     public Boolean sessionIsActive(String sessionId) {
-        return findSessionById(sessionId).getIsActive();
+        return findSessionById(sessionId).getSessionCloseTime().isAfter(Instant.now());
     }
 
     public List<SessionEntity> findAllOpenSessions() {
