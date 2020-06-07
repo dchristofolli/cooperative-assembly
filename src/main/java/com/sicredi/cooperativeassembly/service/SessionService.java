@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@EnableScheduling
 @Slf4j
 public class SessionService {
     private final SessionRepository sessionRepository;
@@ -60,6 +59,7 @@ public class SessionService {
     public Boolean alreadyVotedOnThisSession(VoteModel voteModel) {
         return findSessionById(voteModel.getSessionId()).getCpfAlreadyVoted().contains(voteModel.getCpf());
     }
+
 
     public SessionResult votationResult(String sessionId) {
         String agendaId = findSessionById(sessionId).getAgendaId();
