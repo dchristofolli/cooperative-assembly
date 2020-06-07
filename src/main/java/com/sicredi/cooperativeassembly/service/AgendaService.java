@@ -31,4 +31,9 @@ public class AgendaService {
             throw new ApiException("There are no agendas found", HttpStatus.NOT_FOUND);
         return agendaEntities;
     }
+
+    public AgendaEntity findById(String agendaId) {
+        return agendaRepository.findById(agendaId)
+                .orElseThrow(() -> new ApiException("Agenda not found", HttpStatus.NOT_FOUND));
+    }
 }

@@ -1,6 +1,8 @@
 package com.sicredi.cooperativeassembly.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sicredi.cooperativeassembly.model.session.SessionResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -23,5 +25,6 @@ public class SessionEntity {
     private List<String> votes;
     private List<String> cpfAlreadyVoted;
     private Instant sessionCloseTime;
-    private Boolean isActive;
+    @JsonIgnore
+    String messageAlreadySent="n";
 }

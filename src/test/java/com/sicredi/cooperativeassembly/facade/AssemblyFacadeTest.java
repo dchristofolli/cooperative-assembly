@@ -107,7 +107,7 @@ public class AssemblyFacadeTest {
 //                .favor(1L)
 //                .build();
 //        when(sessionService.sessionIsActive("1")).thenReturn(true);
-//        when(sessionService.votationResult("1")).thenReturn(result);
+//        when(sessionService.votingResult("1")).thenReturn(result);
 //        assemblyFacade.sessionResult("1");
 //        assertEquals(result, assemblyFacade.sessionResult("1"));
 //    }

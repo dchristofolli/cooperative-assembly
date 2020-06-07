@@ -8,7 +8,6 @@ import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -44,6 +43,17 @@ public class SessionService {
         return activeSessions;
     }
 
+    public List<SessionEntity> findAllClosedSessions() {
+        List<SessionEntity> activeSessions = sessionRepository.findAll().parallelStream()
+                .filter(a -> a.getSessionCloseTime().isBefore(Instant.now()))
+                .collect(Collectors.toList());
+        if (activeSessions.isEmpty()) {
+            throw new ApiException("There are no closed sessions", HttpStatus.NOT_FOUND);
+        }
+        return activeSessions;
+    }
+
+
     public VoteModel vote(VoteModel voteModel) {
         SessionEntity sessionEntity = findSessionById(voteModel.getSessionId());
         List<String> votes = sessionEntity.getVotes();
@@ -61,7 +71,7 @@ public class SessionService {
     }
 
 
-    public SessionResult votationResult(String sessionId) {
+    public SessionResult checkSessionResult(String sessionId) {
         String agendaId = findSessionById(sessionId).getAgendaId();
         List<String> votes = findSessionById(sessionId).getVotes();
         return SessionResult.builder()
@@ -71,5 +81,21 @@ public class SessionService {
                 .against(votes.parallelStream().filter(v -> v.equals("N")).count())
                 .total(votes.size())
                 .build();
+    }
+
+    public List<SessionResult> getSessionResults() {
+        List<SessionResult> results = findAllClosedSessions()
+                .parallelStream()
+                .map(s -> checkSessionResult(s.getSessionId()))
+                .collect(Collectors.toList());
+        if(results.isEmpty()){
+            throw new ApiException("There are no results", HttpStatus.NOT_FOUND);
+        }
+        return results;
+    }
+
+    public void setMessageAlreadySent(SessionEntity sessionEntity) {
+        sessionEntity.setMessageAlreadySent("s");
+        sessionRepository.save(sessionEntity);
     }
 }

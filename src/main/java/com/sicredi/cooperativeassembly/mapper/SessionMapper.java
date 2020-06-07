@@ -20,7 +20,6 @@ public class SessionMapper {
         return SessionEntity.builder()
                 .agendaId(sessionRequest.getAgendaId())
                 .sessionCloseTime(Instant.now().plusSeconds(sessionRequest.getMinutesRemaining() * 60))
-                .isActive(true)
                 .cpfAlreadyVoted(Collections.emptyList())
                 .votes(Collections.emptyList())
                 .build();
