@@ -119,6 +119,7 @@ Exemplo de response:
 }
 
 * assembly/members/vote
+
 Permite que um associado realize um voto em uma sessão ativa, inserindo o ID da sessão e o CPF.
 O sistema irá verificar a validade do CPF através da [API](https://user-info.herokuapp.com/users/{cpf}) que foi 
 fornecida na [documentação](https://github.com/rh-southsystem/desafio-back-votos) desse desafio. **
