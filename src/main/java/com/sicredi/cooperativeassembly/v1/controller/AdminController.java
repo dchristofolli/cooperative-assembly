@@ -1,10 +1,10 @@
-package com.sicredi.cooperativeassembly.controller;
+package com.sicredi.cooperativeassembly.v1.controller;
 
-import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.v1.facade.AssemblyFacade;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

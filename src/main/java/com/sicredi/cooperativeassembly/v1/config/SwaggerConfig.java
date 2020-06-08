@@ -1,4 +1,4 @@
-package com.sicredi.cooperativeassembly.config;
+package com.sicredi.cooperativeassembly.v1.config;
 
 import lombok.Generated;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sicredi.cooperativeassembly.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sicredi.cooperativeassembly.v1.controller"))
                 .build()
                 .apiInfo(metadata());
     }

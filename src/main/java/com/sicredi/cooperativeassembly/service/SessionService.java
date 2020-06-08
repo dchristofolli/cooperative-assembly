@@ -2,8 +2,8 @@ package com.sicredi.cooperativeassembly.service;
 
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.model.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
 import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

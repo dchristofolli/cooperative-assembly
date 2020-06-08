@@ -1,6 +1,6 @@
-package com.sicredi.cooperativeassembly.model.session;
+package com.sicredi.cooperativeassembly.v1.model.session;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SessionResponse {
+    @ApiModelProperty(notes = "Identificador da sessão que foi iniciada", example = "5edd42536877d815f01a0a4a")
     private String sessionId;
 }

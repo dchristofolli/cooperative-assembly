@@ -2,7 +2,7 @@ package com.sicredi.cooperativeassembly.service;
 
 import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
 import com.sicredi.cooperativeassembly.data.repository.AgendaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapAgendaToEntity;
+import static com.sicredi.cooperativeassembly.v1.mapper.AgendaMapper.mapAgendaToEntity;
 
 @Service
 @AllArgsConstructor

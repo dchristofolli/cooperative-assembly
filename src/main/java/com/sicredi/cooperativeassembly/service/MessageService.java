@@ -1,7 +1,7 @@
 package com.sicredi.cooperativeassembly.service;
 
 import com.sicredi.cooperativeassembly.kafka.EventProducer;
-import com.sicredi.cooperativeassembly.model.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Value;

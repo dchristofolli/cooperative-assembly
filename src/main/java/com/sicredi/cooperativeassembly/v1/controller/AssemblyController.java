@@ -1,10 +1,10 @@
-package com.sicredi.cooperativeassembly.controller;
+package com.sicredi.cooperativeassembly.v1.controller;
 
-import com.sicredi.cooperativeassembly.facade.AssemblyFacade;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.model.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.facade.AssemblyFacade;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -12,10 +12,12 @@ import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @AllArgsConstructor
 @RestController
 @Api(value = "Cooperative Assembly")
-@RequestMapping(path = "/assembly/members")
+@RequestMapping(path = "/assembly/v1/members")
 public class AssemblyController {
     private final AssemblyFacade assemblyFacade;
 
@@ -46,7 +48,7 @@ public class AssemblyController {
             @ApiResponse(code = 500, message = "An error occurred on the server")
     })
     @PostMapping("/vote")
-    public VoteModel vote(@RequestBody VoteModel voteModel) {
+    public VoteModel vote(@Valid @RequestBody VoteModel voteModel) {
         return assemblyFacade.vote(voteModel);
     }
 

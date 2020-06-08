@@ -1,33 +1,35 @@
-package com.sicredi.cooperativeassembly.facade;
+package com.sicredi.cooperativeassembly.v1.facade;
 
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.mapper.SessionMapper;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.model.agenda.AgendaResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.model.session.SessionResponse;
-import com.sicredi.cooperativeassembly.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.model.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.mapper.SessionMapper;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
 import com.sicredi.cooperativeassembly.service.AgendaService;
 import com.sicredi.cooperativeassembly.service.CpfService;
 import com.sicredi.cooperativeassembly.service.MessageService;
 import com.sicredi.cooperativeassembly.service.SessionService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapEntityToResponse;
-import static com.sicredi.cooperativeassembly.mapper.AgendaMapper.mapToAgendaList;
-import static com.sicredi.cooperativeassembly.mapper.SessionMapper.mapEntityToModel;
-import static com.sicredi.cooperativeassembly.mapper.SessionMapper.mapModelToEntity;
+import static com.sicredi.cooperativeassembly.v1.mapper.AgendaMapper.mapEntityToResponse;
+import static com.sicredi.cooperativeassembly.v1.mapper.AgendaMapper.mapToAgendaList;
+import static com.sicredi.cooperativeassembly.v1.mapper.SessionMapper.mapEntityToModel;
+import static com.sicredi.cooperativeassembly.v1.mapper.SessionMapper.mapModelToEntity;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class AssemblyFacade {
     private final AgendaService agendaService;
     private final SessionService sessionService;

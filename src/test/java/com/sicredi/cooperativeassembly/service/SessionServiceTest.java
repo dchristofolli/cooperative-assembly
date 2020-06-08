@@ -42,9 +42,12 @@ public class SessionServiceTest {
 
     @Test
     public void sessionIsActive() {
-        given(sessionRepository.findById("123")).willReturn(Optional.of(sessionEntityStub()));
-        sessionService.sessionIsActive("123");
-        assertTrue(sessionService.sessionIsActive("123"));
+        SessionEntity sessionEntity = sessionEntityStub();
+        sessionEntity.setSessionCloseTime(Instant.now().plusSeconds(10));
+        given(sessionRepository.save(sessionEntity)).willReturn(sessionEntity);
+        given(sessionRepository.findById("123456")).willReturn(Optional.of(sessionEntity));
+        sessionService.createVotingSession(sessionEntity);
+        assertTrue(sessionService.sessionIsActive("123456"));
     }
 
     @Test

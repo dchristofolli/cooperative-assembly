@@ -145,6 +145,10 @@ O banco poderá ser administrado através do [Mongo Express](http://127.0.0.1:80
 O resultado de cada sessão de votação será enviado pelo Kafka ao tópico "results.topic". O consumo das mensagens 
 será feito pelo sistema, e as mensagens serão exibidas no log.
 
+#### Versionamento
+
+O projeto foi versionado pela URL no modelo path, por ter o visual mais limpo e ser mais amigável ao desenvolvedor.
+
 
 
 ** A API externa se mostrou muito instável no desenvolvimento desse sistema, mostrando 
