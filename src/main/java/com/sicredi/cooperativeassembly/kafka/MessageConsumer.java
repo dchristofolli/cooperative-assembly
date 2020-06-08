@@ -11,7 +11,7 @@ import java.util.concurrent.CountDownLatch;
 public class MessageConsumer {
     private final CountDownLatch countDownLatch= new CountDownLatch(1);
 
-    @KafkaListener(topics = "${session-result.kafka.topic}", groupId = "user")
+    @KafkaListener(topics = "${session-result.kafka.topic}")
     public void consumer(String payload){
         log.info("Received voting session result: {}", payload);
         countDownLatch.countDown();

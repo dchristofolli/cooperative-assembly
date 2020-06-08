@@ -44,13 +44,13 @@ public class SessionService {
     }
 
     public List<SessionEntity> findAllClosedSessions() {
-        List<SessionEntity> activeSessions = sessionRepository.findAll().parallelStream()
+        List<SessionEntity> closedSessions = sessionRepository.findAll().parallelStream()
                 .filter(a -> a.getSessionCloseTime().isBefore(Instant.now()))
                 .collect(Collectors.toList());
-        if (activeSessions.isEmpty()) {
+        if (closedSessions.isEmpty()) {
             throw new ApiException("There are no closed sessions", HttpStatus.NOT_FOUND);
         }
-        return activeSessions;
+        return closedSessions;
     }
 
 

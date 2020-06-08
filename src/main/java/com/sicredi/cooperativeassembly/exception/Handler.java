@@ -1,7 +1,6 @@
 package com.sicredi.cooperativeassembly.exception;
 
 import com.mongodb.DuplicateKeyException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,7 +27,7 @@ public class Handler {
                 .error(e.getClass().getName())
                 .message("Invalid form")
                 .status(HttpStatus.BAD_REQUEST)
-                .fieldErrors(errors)
+                .formErrors(errors)
                 .build();
     }
 

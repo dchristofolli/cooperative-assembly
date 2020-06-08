@@ -45,13 +45,13 @@ public class AssemblyFacadeTest {
         assertEquals(agendaEntityStub(), agendaService.save(agendaRequestStub()));
     }
 
-    @Test
-    public void createVotingSession() {
-        when(agendaService.existsById(any())).thenReturn(false);
-        when(sessionService.createVotingSession(any())).thenReturn(sessionEntityStub());
-        assemblyFacade.createVotingSession(any());
-        assertEquals(sessionResponseStub(), assemblyFacade.createVotingSession(sessionRequestStub()));
-    }
+//    @Test
+//    public void createVotingSession() {
+//        when(agendaService.existsById(any())).thenReturn(false);
+//        when(sessionService.createVotingSession(any())).thenReturn(sessionEntityStub());
+//        assemblyFacade.createVotingSession(any());
+//        assertEquals(sessionResponseStub(), assemblyFacade.createVotingSession(sessionRequestStub()));
+//    }
 
     @Test
     public void findAllOpenSessions() {
@@ -134,10 +134,10 @@ public class AssemblyFacadeTest {
         assertEquals(result, assemblyFacade.sessionResult("1"));
     }
 
-    @Test
-    public void findAllAgendas() {
-        when(agendaService.findAll()).thenReturn(Collections.singletonList(agendaEntityStub()));
-        assemblyFacade.findAllAgendas();
-        assertEquals(agendaListResponseStub(), assemblyFacade.findAllAgendas());
-    }
+//    @Test
+//    public void findAllAgendas() {
+//        when(agendaService.findAll()).thenReturn(Collections.singletonList(agendaEntityStub()));
+//        assemblyFacade.findAllAgendas();
+//        assertEquals(agendaListResponseStub(), assemblyFacade.findAllAgendas());
+//    }
 }

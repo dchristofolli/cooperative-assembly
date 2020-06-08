@@ -26,7 +26,7 @@ public class AssemblyController {
             @ApiResponse(code = 200, message = "Sessions found"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("agenda/all")
+    @GetMapping("/agenda/all")
     public AgendaListResponse findAllAgendas() {
         return assemblyFacade.findAllAgendas();
     }
@@ -36,7 +36,7 @@ public class AssemblyController {
             @ApiResponse(code = 200, message = "Sessions found"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("session/open-sessions")
+    @GetMapping("/session/open-sessions")
     public SessionListResponse findAllOpenSessions() {
         return assemblyFacade.findAllOpenSessions();
     }
