@@ -1,5 +1,6 @@
 package com.sicredi.cooperativeassembly.v1.mapper;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
 import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
 import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;

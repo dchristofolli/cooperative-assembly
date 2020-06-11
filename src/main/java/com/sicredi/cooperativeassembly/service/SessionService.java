@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,10 +37,13 @@ public class SessionService {
     }
 
     public List<SessionEntity> findAllOpenSessions() {
-        return Optional.of(sessionRepository.findAll().parallelStream()
+        List<SessionEntity> entities = sessionRepository.findAll().parallelStream()
                 .filter(a -> a.getSessionCloseTime().isAfter(Instant.now()))
-                .collect(Collectors.toList()))
-                .orElseThrow(() -> new ApiException("There are no active sessions", HttpStatus.NOT_FOUND));
+                .collect(Collectors.toList());
+        if(entities.isEmpty()){
+            throw new ApiException("There are no open sessions", HttpStatus.NOT_FOUND);
+        }
+        return entities;
     }
 
     public List<SessionEntity> findAllClosedSessions() {
