@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @AllArgsConstructor
 public class CpfRestClient {
-    private RestTemplate restTemplate;
-    private Environment environment;
+    private final RestTemplate restTemplate;
+    private final Environment environment;
 
     public String consultaCpf(String cpf) {
         try{
