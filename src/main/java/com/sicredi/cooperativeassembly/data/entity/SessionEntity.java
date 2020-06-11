@@ -26,5 +26,5 @@ public class SessionEntity {
     private Instant sessionCloseTime;
     @JsonIgnore
     @Builder.Default
-    String messageAlreadySent = "n";
+    String messageAlreadySent = "N";
 }

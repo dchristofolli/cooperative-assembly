@@ -168,7 +168,7 @@ public class SessionServiceTest {
     @Test
     public void setMessageAlreadySent() {
         SessionEntity session = sessionEntityStub();
-        session.setMessageAlreadySent("s");
+        session.setMessageAlreadySent("S");
         when(sessionRepository.save(session)).thenReturn(session);
         sessionService.setMessageAlreadySent(session);
         verify(sessionRepository).save(session);

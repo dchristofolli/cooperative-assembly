@@ -1,14 +1,14 @@
 package com.sicredi.cooperativeassembly.data.entity;
 
+import lombok.Builder;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Email;
-
 @lombok.Data
+@Builder
 @Document(collection = "Email")
-public class MemberEntity {
-    private String id;
-
-    @Email(message = "Digite um endereço de e-mail válido")
+public class EmailEntity {
+    @Id
+    String id;
     private String email;
 }
