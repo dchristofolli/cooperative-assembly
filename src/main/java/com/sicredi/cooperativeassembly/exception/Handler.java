@@ -2,6 +2,7 @@ package com.sicredi.cooperativeassembly.exception;
 
 import com.mongodb.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.MailSendException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

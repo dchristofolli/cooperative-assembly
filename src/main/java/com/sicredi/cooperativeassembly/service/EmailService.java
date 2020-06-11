@@ -6,6 +6,7 @@ import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,17 @@ public class EmailService {
 
     public void mailSend(SessionResult result) {
         SimpleMailMessage message = new SimpleMailMessage();
-        findAllEmails().parallelStream()
-                .forEach(email -> {
-                    message.setSubject("Resultados da Sessão " + result.getSessionId());
-                    message.setFrom(from);
-                    message.setTo(email.getEmail());
-                    message.setText(String.valueOf(result));
-                    sender.send(message);
-                });
+        try{
+            findAllEmails().parallelStream()
+                    .forEach(email -> {
+                        message.setSubject("Resultados da Sessão " + result.getSessionId());
+                        message.setFrom(from);
+                        message.setTo(email.getEmail());
+                        message.setText(String.valueOf(result));
+                        sender.send(message);
+                    });
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
     }
 }
