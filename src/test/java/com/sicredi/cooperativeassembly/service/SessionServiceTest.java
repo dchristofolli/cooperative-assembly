@@ -1,9 +1,10 @@
 package com.sicredi.cooperativeassembly.service;
 
+import com.sicredi.cooperativeassembly.data.entity.EmailEntity;
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
+import com.sicredi.cooperativeassembly.data.repository.EmailRepository;
 import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
 import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
 import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
 import org.junit.Test;
@@ -20,7 +21,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.sicredi.cooperativeassembly.Stub.sessionEntityStub;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,6 +31,8 @@ import static org.mockito.Mockito.when;
 public class SessionServiceTest {
     @Mock
     SessionRepository sessionRepository;
+    @Mock
+    EmailRepository emailRepository;
     @InjectMocks
     SessionService sessionService;
 
@@ -80,12 +84,12 @@ public class SessionServiceTest {
         assertEquals(Collections.singletonList(sessionEntity), sessionService.findAllClosedSessions());
     }
 
-    @Test(expected = ApiException.class)
+    @Test
     public void findAllClosedSessions_notFound() {
         SessionEntity sessionEntity = SessionEntity.builder().sessionCloseTime(Instant.now().plusSeconds(60)).build();
         given(sessionRepository.findAll()).willReturn(Collections.singletonList(sessionEntity));
         sessionService.findAllClosedSessions();
-        assertEquals(Collections.singletonList(sessionEntity), sessionService.findAllClosedSessions());
+        assertEquals(Collections.emptyList(), sessionService.findAllClosedSessions());
     }
 
     @Test
@@ -94,6 +98,10 @@ public class SessionServiceTest {
         votesList.add("S");
         List<String> cpfList = new ArrayList<>();
         cpfList.add("85337392069");
+        EmailEntity emailEntity = EmailEntity.builder()
+                .id("123")
+                .email("edward.nygma@gotham.com")
+                .build();
         SessionEntity session = SessionEntity.builder()
                 .sessionId("123456")
                 .agendaId("1")
@@ -104,6 +112,7 @@ public class SessionServiceTest {
 
         VoteModel vote = VoteModel.builder()
                 .sessionId("123456")
+                .email("edward.nygma@gotham.com")
                 .cpf("93011201005")
                 .option("N")
                 .build();
@@ -113,6 +122,7 @@ public class SessionServiceTest {
         session.setCpfAlreadyVoted(cpfList);
         session.setVotes(votesList);
         when(sessionRepository.findById("123456")).thenReturn(Optional.of(session));
+        when(emailRepository.save(emailEntity)).thenReturn(emailEntity);
         sessionService.vote(vote);
         assertEquals(vote, sessionService.vote(vote));
     }
