@@ -28,7 +28,7 @@ public class AgendaService {
     public List<AgendaEntity> findAll() {
         List<AgendaEntity> agendaEntities = agendaRepository.findAll();
         if (agendaEntities.isEmpty())
-            throw new ApiException("There are no agendas found", HttpStatus.NOT_FOUND);
+            throw new ApiException("There are no agendas", HttpStatus.NOT_FOUND);
         return agendaEntities;
     }
 

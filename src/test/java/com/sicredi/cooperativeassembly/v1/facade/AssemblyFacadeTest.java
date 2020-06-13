@@ -72,7 +72,7 @@ public class AssemblyFacadeTest {
         VoteModel voteModel = VoteModel.builder()
                 .sessionId("1")
                 .cpf("01063682061")
-                .option("s")
+                .option("S")
                 .build();
         when(sessionService.sessionIsActive("1")).thenReturn(true);
         when(sessionService.alreadyVotedOnThisSession(voteModel)).thenReturn(false);

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -23,8 +23,13 @@ public class VoteModel {
     @Size(min = 1, message = "O ID deve ser preenchido")
     private String sessionId;
 
-    @ApiModelProperty(notes = "Voto", example = "s", allowableValues = "'s' ou 'n'")
+    @ApiModelProperty(notes = "Voto", example = "S", allowableValues = "'s' ou 'n'")
     @NotBlank
     @Size(min = 1, max = 1, message = "Digite 1 caractere. As opções são 's' ou 'n'")
     private String option;
+
+    @ApiModelProperty(notes = "Endereço de e-mail para o qual os resultados das sessões serão enviados",
+            example = "edward.nygma@gotham.com")
+    @Email(message = "Digite um endereço de e-mail válido")
+    private String email;
 }

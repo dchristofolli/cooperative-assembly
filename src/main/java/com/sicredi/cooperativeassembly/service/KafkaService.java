@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class MessageService {
+public class KafkaService {
     private final EventProducer eventProducer;
     @Value("${session-result.kafka.topic}")
     private final String topic;

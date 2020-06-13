@@ -1,10 +1,12 @@
 package com.sicredi.cooperativeassembly.service;
 
+import com.sicredi.cooperativeassembly.data.entity.EmailEntity;
 import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
+import com.sicredi.cooperativeassembly.data.repository.EmailRepository;
+import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import com.sicredi.cooperativeassembly.exception.ApiException;
 import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
 import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
-import com.sicredi.cooperativeassembly.data.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SessionService {
     private final SessionRepository sessionRepository;
+    private final EmailRepository emailRepository;
 
     public SessionEntity findSessionById(String sessionId) {
         return sessionRepository.findById(sessionId)
@@ -34,23 +37,19 @@ public class SessionService {
     }
 
     public List<SessionEntity> findAllOpenSessions() {
-        List<SessionEntity> activeSessions = sessionRepository.findAll().parallelStream()
+        List<SessionEntity> entities = sessionRepository.findAll().parallelStream()
                 .filter(a -> a.getSessionCloseTime().isAfter(Instant.now()))
                 .collect(Collectors.toList());
-        if (activeSessions.isEmpty()) {
-            throw new ApiException("There are no active sessions", HttpStatus.NOT_FOUND);
+        if(entities.isEmpty()){
+            throw new ApiException("There are no open sessions", HttpStatus.NOT_FOUND);
         }
-        return activeSessions;
+        return entities;
     }
 
     public List<SessionEntity> findAllClosedSessions() {
-        List<SessionEntity> closedSessions = sessionRepository.findAll().parallelStream()
+        return sessionRepository.findAll().parallelStream()
                 .filter(a -> a.getSessionCloseTime().isBefore(Instant.now()))
                 .collect(Collectors.toList());
-        if (closedSessions.isEmpty()) {
-            throw new ApiException("There are no closed sessions", HttpStatus.NOT_FOUND);
-        }
-        return closedSessions;
     }
 
 
@@ -63,6 +62,7 @@ public class SessionService {
         sessionEntity.setVotes(votes);
         sessionEntity.setCpfAlreadyVoted(cpf);
         sessionRepository.save(sessionEntity);
+        emailRepository.save(EmailEntity.builder().email(voteModel.getEmail()).build());
         return voteModel;
     }
 
@@ -84,18 +84,14 @@ public class SessionService {
     }
 
     public List<SessionResult> getSessionResults() {
-        List<SessionResult> results = findAllClosedSessions()
+        return findAllClosedSessions()
                 .parallelStream()
                 .map(s -> checkSessionResult(s.getSessionId()))
                 .collect(Collectors.toList());
-        if(results.isEmpty()){
-            throw new ApiException("There are no results", HttpStatus.NOT_FOUND);
-        }
-        return results;
     }
 
     public void setMessageAlreadySent(SessionEntity sessionEntity) {
-        sessionEntity.setMessageAlreadySent("s");
+        sessionEntity.setMessageAlreadySent("S");
         sessionRepository.save(sessionEntity);
     }
 }
