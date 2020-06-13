@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/assembly/admin")
+@RequestMapping(path = "/assembly/v1/admin")
 public class AdminController {
     private final AssemblyFacade assemblyFacade;
 
