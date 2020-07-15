@@ -1,12 +1,12 @@
 package com.sicredi.cooperativeassembly;
 
-import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
-import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.domain.model.AgendaEntity;
+import com.sicredi.cooperativeassembly.domain.model.SessionEntity;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResponse;
 
 import java.util.Collections;
 

@@ -1,10 +1,10 @@
 package com.sicredi.cooperativeassembly.v1.controller;
 
 import com.sicredi.cooperativeassembly.v1.facade.AssemblyFacade;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.dto.vote.VoteModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RestController
 @Api(value = "Cooperative Assembly")
-@RequestMapping(path = "/assembly/v1/members")
+@RequestMapping(path = "/v1/member")
 public class AssemblyController {
     private final AssemblyFacade assemblyFacade;
 
@@ -58,7 +58,7 @@ public class AssemblyController {
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Bad server")
     })
-    @GetMapping("/session/results")
+    @GetMapping("/session/result")
     public SessionResult sessionResult(String sessionId) {
         return assemblyFacade.sessionResult(sessionId);
     }

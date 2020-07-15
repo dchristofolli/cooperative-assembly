@@ -1,10 +1,9 @@
 package com.sicredi.cooperativeassembly.v1.mapper;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.domain.model.SessionEntity;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

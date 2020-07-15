@@ -1,9 +1,9 @@
 package com.sicredi.cooperativeassembly.v1.mapper;
 
-import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.domain.model.AgendaEntity;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

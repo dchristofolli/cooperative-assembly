@@ -1,10 +1,10 @@
 package com.sicredi.cooperativeassembly.v1.controller;
 
 import com.sicredi.cooperativeassembly.v1.facade.AssemblyFacade;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/assembly/v1/admin")
+@RequestMapping(path = "/v1/admin")
 public class AdminController {
     private final AssemblyFacade assemblyFacade;
 

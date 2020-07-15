@@ -1,16 +1,16 @@
 package com.sicredi.cooperativeassembly.v1.facade;
 
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.service.*;
+import com.sicredi.cooperativeassembly.v1.service.*;
 import com.sicredi.cooperativeassembly.v1.mapper.SessionMapper;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaListResponse;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaRequest;
+import com.sicredi.cooperativeassembly.v1.dto.agenda.AgendaResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionRequest;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.dto.vote.VoteModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

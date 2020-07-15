@@ -1,19 +1,14 @@
 package com.sicredi.cooperativeassembly.v1.facade;
 
-import com.sicredi.cooperativeassembly.Stub;
-import com.sicredi.cooperativeassembly.data.entity.AgendaEntity;
-import com.sicredi.cooperativeassembly.data.entity.SessionEntity;
+import com.sicredi.cooperativeassembly.domain.model.SessionEntity;
 import com.sicredi.cooperativeassembly.exception.ApiException;
-import com.sicredi.cooperativeassembly.service.CpfService;
-import com.sicredi.cooperativeassembly.v1.model.agenda.AgendaRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionListResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionRequest;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResponse;
-import com.sicredi.cooperativeassembly.v1.model.session.SessionResult;
-import com.sicredi.cooperativeassembly.v1.model.vote.VoteModel;
-import com.sicredi.cooperativeassembly.service.AgendaService;
-import com.sicredi.cooperativeassembly.service.SessionService;
-import org.apache.zookeeper.server.quorum.Vote;
+import com.sicredi.cooperativeassembly.v1.service.CpfService;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionListResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResponse;
+import com.sicredi.cooperativeassembly.v1.dto.session.SessionResult;
+import com.sicredi.cooperativeassembly.v1.dto.vote.VoteModel;
+import com.sicredi.cooperativeassembly.v1.service.AgendaService;
+import com.sicredi.cooperativeassembly.v1.service.SessionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
