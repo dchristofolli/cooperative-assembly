@@ -40,14 +40,6 @@ public class AssemblyFacadeTest {
         assertEquals(agendaEntityStub(), agendaService.save(agendaRequestStub()));
     }
 
-//    @Test
-//    public void createVotingSession() {
-//        when(agendaService.existsById(any())).thenReturn(false);
-//        when(sessionService.createVotingSession(any())).thenReturn(sessionEntityStub());
-//        assemblyFacade.createVotingSession(any());
-//        assertEquals(sessionResponseStub(), assemblyFacade.createVotingSession(sessionRequestStub()));
-//    }
-
     @Test
     public void findAllOpenSessions() {
         when(sessionService.findAllOpenSessions()).thenReturn(Collections.singletonList(SessionEntity.builder()
@@ -71,7 +63,7 @@ public class AssemblyFacadeTest {
                 .build();
         when(sessionService.sessionIsActive("1")).thenReturn(true);
         when(sessionService.alreadyVotedOnThisSession(voteModel)).thenReturn(false);
-        when(cpfService.cpfIsUnableToVote("01063682061")).thenReturn(true);
+        when(cpfService.cpfIsUnableToVote("01063682061")).thenReturn(false);
         assemblyFacade.vote(voteModel);
         assertNull(assemblyFacade.vote(voteModel));
     }
