@@ -71,7 +71,7 @@ public class AssemblyFacadeTest {
                 .build();
         when(sessionService.sessionIsActive("1")).thenReturn(true);
         when(sessionService.alreadyVotedOnThisSession(voteModel)).thenReturn(false);
-        when(cpfService.cpfIsAbleToVote("01063682061")).thenReturn(true);
+        when(cpfService.cpfIsUnableToVote("01063682061")).thenReturn(true);
         assemblyFacade.vote(voteModel);
         assertNull(assemblyFacade.vote(voteModel));
     }
@@ -98,7 +98,7 @@ public class AssemblyFacadeTest {
                 .build();
         when(sessionService.sessionIsActive("1")).thenReturn(true);
         when(sessionService.alreadyVotedOnThisSession(voteModel)).thenReturn(true);
-        when(cpfService.cpfIsAbleToVote("01063682061")).thenReturn(true);
+        when(cpfService.cpfIsUnableToVote("01063682061")).thenReturn(true);
         assemblyFacade.vote(voteModel);
         assertNull(assemblyFacade.vote(voteModel));
     }
@@ -112,7 +112,7 @@ public class AssemblyFacadeTest {
                 .build();
         when(sessionService.sessionIsActive("1")).thenReturn(true);
         when(sessionService.alreadyVotedOnThisSession(voteModel)).thenReturn(true);
-        when(cpfService.cpfIsAbleToVote("01063682061")).thenReturn(false);
+        when(cpfService.cpfIsUnableToVote("01063682061")).thenReturn(false);
         assemblyFacade.vote(voteModel);
         assertNull(assemblyFacade.vote(voteModel));
     }

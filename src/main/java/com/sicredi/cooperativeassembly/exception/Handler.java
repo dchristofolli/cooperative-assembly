@@ -1,6 +1,7 @@
 package com.sicredi.cooperativeassembly.exception;
 
 import com.mongodb.DuplicateKeyException;
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -46,6 +47,16 @@ public class Handler {
     public ErrorModel handleDuplicateKeyException(DuplicateKeyException e) {
         return ErrorModel.builder()
                 .message("The value already exists in the database")
+                .error(e.getClass().getName())
+                .status(HttpStatus.BAD_REQUEST)
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(FeignException.class)
+    public ErrorModel feignNotFoundException(FeignException e) {
+        return ErrorModel.builder()
+                .message("Invalid CPF number")
                 .error(e.getClass().getName())
                 .status(HttpStatus.BAD_REQUEST)
                 .build();

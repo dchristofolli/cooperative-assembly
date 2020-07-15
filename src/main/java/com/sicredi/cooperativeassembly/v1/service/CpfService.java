@@ -1,6 +1,6 @@
 package com.sicredi.cooperativeassembly.v1.service;
 
-import com.sicredi.cooperativeassembly.client.CpfRestClient;
+import com.sicredi.cooperativeassembly.client.CpfClient;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CpfService {
-    private final CpfRestClient cpfRestClient;
+    private final CpfClient cpfClient;
     @Value("${enable.cpf-checking}")
-    private final Boolean enableCpfChecking;
+    private final boolean enableCpfChecking;
 
-    public Boolean cpfIsAbleToVote(String cpf) {
+    public boolean cpfIsUnableToVote(String cpf) {
         if (!enableCpfChecking)
-            return true;
-        return cpfRestClient.consultaCpf(cpf).equals("ABLE_TO_VOTE");
+            return false;
+        return cpfClient.cpfChecking(cpf).equals("UNABLE_TO_VOTE");
     }
 }

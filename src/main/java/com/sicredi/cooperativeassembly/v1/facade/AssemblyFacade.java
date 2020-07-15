@@ -32,7 +32,6 @@ public class AssemblyFacade {
     private final SessionService sessionService;
     private final CpfService cpfService;
     private final KafkaService kafkaService;
-    private final EmailService emailService;
 
     public AgendaResponse createAgenda(AgendaRequest agendaRequest) {
         return mapEntityToResponse(agendaService.save(agendaRequest));
@@ -53,7 +52,7 @@ public class AssemblyFacade {
     public VoteModel vote(VoteModel voteModel) {
         if (!sessionService.sessionIsActive(voteModel.getSessionId()))
             throw new ApiException("Session is not active", HttpStatus.NOT_FOUND);
-        if (!cpfService.cpfIsAbleToVote(voteModel.getCpf()))
+        if (cpfService.cpfIsUnableToVote(voteModel.getCpf()))
             throw new ApiException("Unable to vote", HttpStatus.UNAUTHORIZED);
         if (sessionService.alreadyVotedOnThisSession(voteModel))
             throw new ApiException("User already voted on this session", HttpStatus.FORBIDDEN);
@@ -74,10 +73,7 @@ public class AssemblyFacade {
                 .filter(result ->
                         Objects.equals(sessionService.findSessionById(result.getSessionId())
                                 .getMessageAlreadySent(), "N"))
-                .map(session -> {
-                    emailService.mailSend(session);
-                    return kafkaService.makeRecord(session);
-                })
+                .map(kafkaService::makeRecord)
                 .forEach(kafkaService::send);
         sessionService.findAllClosedSessions()
                 .forEach(sessionService::setMessageAlreadySent);

@@ -1,10 +1,9 @@
 package com.sicredi.cooperativeassembly.config;
 
 import lombok.Generated;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,17 +12,12 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 public class ApiConfig {
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
     @Bean
-    public Boolean aBoolean(){
+    public Boolean aBoolean() {
         return true;
-    }
-
-    @Bean
-    public JavaMailSender javaMailSender(){
-        return new JavaMailSenderImpl();
     }
 }
