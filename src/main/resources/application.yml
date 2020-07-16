@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/db_assembly
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+session-result:
+    kafka:
+      topic: results.topic
+
+# Habilita/Desabilita a verificação do CPF através da API externa
+enable:
+    cpf-checking: true
