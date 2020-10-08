@@ -25,7 +25,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo metadata() {
-        return new ApiInfoBuilder().title("South System Challenge")
+        return new ApiInfoBuilder().title("Sicredi Challenge")
                 .description("Cooperative Assembly")
                 .version("1.0")
                 .build();
